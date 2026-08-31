@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Adjustment Audit New - Vantage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: #1a1a2e;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 32px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .nav-logo .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: #4ecb71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            color: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 100;
+            padding-top: 8px;
+            padding-bottom: 4px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            display: block;
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: #f5f5f5;
+            color: #1890ff;
+        }
+
+        .nav-item .arrow {
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-env {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-icon.green {
+            background: #4ecb71;
+            color: #fff;
+        }
+
+        .nav-icon.blue {
+            background: #1890ff;
+            color: #fff;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-user .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #87d068;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        /* Main Content */
+        .container {
+            padding: 16px 24px;
+            background: #fff;
+            min-height: calc(100vh - 48px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #1890ff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span.sep {
+            margin: 0 6px;
+            color: #ccc;
+        }
+
+        .breadcrumb .current {
+            color: #333;
+        }
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: flex-end;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-item label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-item input,
+        .form-item select {
+            width: 200px;
+            height: 32px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 10px;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.3s;
+            background: #fff;
+        }
+
+        .form-item input:focus,
+        .form-item select:focus {
+            border-color: #1890ff;
+        }
+
+        .form-item input::placeholder {
+            color: #bfbfbf;
+        }
+
+        .search-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            height: 32px;
+            padding: 0 16px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all 0.3s;
+            background: #fff;
+            color: #333;
+        }
+
+        .btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .btn-primary {
+            background: #1890ff;
+            border-color: #1890ff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #40a9ff;
+            border-color: #40a9ff;
+            color: #fff;
+        }
+
+        .btn-success {
+            background: #fff;
+            border-color: #d9d9d9;
+            color: #333;
+        }
+
+        .btn-success:hover {
+            border-color: #52c41a;
+            color: #52c41a;
+        }
+
+        .btn-danger {
+            background: #fff;
+            border-color: #ff4d4f;
+            color: #ff4d4f;
+        }
+
+        .btn-danger:hover {
+            background: #fff5f5;
+        }
+
+        .expand-btn {
+            border: none;
+            background: none;
+            color: #1890ff;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Actions Row */
+        .actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+            gap: 8px;
+        }
+
+        .btn-add {
+            background: #1890ff;
+            border-color: #1890ff;
+            color: #fff;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+        }
+
+        .btn-add:hover {
+            background: #40a9ff;
+        }
+
+        .btn-batch {
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            color: #333;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-batch:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .btn-approve {
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            color: #333;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-approve:hover {
+            border-color: #52c41a;
+            color: #52c41a;
+        }
+
+        .btn-reject {
+            background: #fff;
+            border: 1px solid #ff4d4f;
+            color: #ff4d4f;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-reject:hover {
+            background: #fff5f5;
+        }
+
+        .btn-download {
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            color: #333;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-download:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .icon-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        thead {
+            background: #fafafa;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        th .sort-icon {
+            display: inline-block;
+            margin-left: 4px;
+            color: #bbb;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        td {
+            color: #555;
+        }
+
+        tr:hover td {
+            background: #f5f5f5;
+        }
+
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #f6ffed;
+            color: #52c41a;
+            border: 1px solid #b7eb8f;
+        }
+
+        .status-rejected {
+            background: #fff2f0;
+            color: #ff4d4f;
+            border: 1px solid #ffccc7;
+        }
+
+        .status-pending {
+            background: #fff7e6;
+            color: #fa8c16;
+            border: 1px solid #ffd591;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .pagination .total {
+            margin-right: 8px;
+            color: #333;
+        }
+
+        .pagination .page-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .pagination .page-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .pagination .page-btn.active {
+            border-color: #1890ff;
+            color: #1890ff;
+            font-weight: 600;
+        }
+
+        .pagination .page-btn.disabled {
+            color: #d9d9d9;
+            cursor: not-allowed;
+            border-color: #d9d9d9;
+        }
+
+        .pagination .page-ellipsis {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .pagination .page-size-select {
+            height: 28px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 8px;
+            font-size: 12px;
+            color: #666;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 8px;
+            width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            position: relative;
+            align-self: flex-start;
+            margin-top: 10vh;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Modal Form */
+        .modal-form .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-form .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            white-space: nowrap;
+            min-width: 130px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .modal-form .form-group label .required {
+            color: #ff4d4f;
+            margin-right: 4px;
+        }
+
+        .modal-form .form-group .form-control {
+            flex: 1;
+        }
+
+        .modal-form .form-group input,
+        .modal-form .form-group select,
+        .modal-form .form-group textarea {
+            width: 100%;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            background: #fff;
+        }
+
+        .modal-form .form-group input:focus,
+        .modal-form .form-group select:focus,
+        .modal-form .form-group textarea:focus {
+            border-color: #1890ff;
+        }
+
+        .modal-form .form-group input:disabled,
+        .modal-form .form-group select:disabled {
+            background: #f5f5f5;
+            color: #bfbfbf;
+            cursor: not-allowed;
+        }
+
+        .modal-form .form-group textarea {
+            height: 80px;
+            padding: 8px 12px;
+            resize: vertical;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .modal-form .form-group input::placeholder,
+        .modal-form .form-group textarea::placeholder {
+            color: #bfbfbf;
+        }
+
+        .modal-form .form-group.align-top {
+            align-items: flex-start;
+        }
+
+        .modal-form .form-group.align-top label {
+            margin-top: 8px;
+        }
+
+        .comment-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .comment-row select {
+            flex: 1;
+        }
+
+        .comment-row .add-comment-btn {
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .comment-row .add-comment-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .modal-footer .btn {
+            min-width: 80px;
+        }
+
+        .btn-confirm {
+            background: #52c41a;
+            border-color: #52c41a;
+            color: #fff;
+        }
+
+        .btn-confirm:hover {
+            background: #73d13d;
+            border-color: #73d13d;
+            color: #fff;
+        }
+
+        /* Modal Tabs */
+        .modal-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .modal-tab {
+            padding: 6px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            background: #fff;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .modal-tab.active {
+            background: #1890ff;
+            color: #fff;
+        }
+
+        /* Batch Content */
+        .batch-content {
+            display: none;
+        }
+
+        .batch-content.visible {
+            display: block;
+        }
+
+        .batch-upload-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .batch-upload-label .required {
+            color: #ff4d4f;
+            margin-right: 4px;
+        }
+
+        .batch-upload-label a {
+            color: #1890ff;
+            text-decoration: none;
+            margin-left: 12px;
+            font-weight: 400;
+        }
+
+        .batch-upload-label a:hover {
+            text-decoration: underline;
+        }
+
+        .select-file-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1px dashed #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .select-file-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        /* Batch CSV Modal */
+        .batch-section {
+            margin-bottom: 20px;
+        }
+
+        .batch-section-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .template-file-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+
+        .template-file-icon {
+            font-size: 16px;
+            color: #999;
+        }
+
+        .template-file-name {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .template-download-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .template-download-btn:hover {
+            color: #1890ff;
+        }
+
+        .upload-file-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border: 1px dashed #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .upload-file-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .btn-upload-disabled {
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            color: #bfbfbf;
+            cursor: not-allowed;
+        }
+
+        .btn-upload-disabled:hover {
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            color: #bfbfbf;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-logo">
+            <div class="logo-icon">&#10003;</div>
+            <span>Vantage</span>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-item">用户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">客户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">账户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">统计报表 <span class="arrow">&#9662;</span></div>
+            <div class="nav-dropdown">
+                <div class="nav-item active">任务管理 <span class="arrow">&#9662;</span></div>
+                <div class="nav-dropdown-menu">
+                    <a href="#">转账审核</a>
+                    <a href="#">新转账审核</a>
+                    <a href="#">佣金审核</a>
+                    <a href="#">入金审核</a>
+                    <a href="#">Funding入金审核</a>
+                    <a href="#">杠杆审核</a>
+                    <a href="#">出金审核</a>
+                    <a href="#">Funding出金审核</a>
+                    <a href="#">账户审核</a>
+                    <a href="#">绑卡审核</a>
+                    <a href="#">同名账户审核</a>
+                    <a href="#">ID & POA 审核</a>
+                    <a href="#">Wholesale Audit</a>
+                    <a href="#">信用卡交易审核</a>
+                    <a href="#">活动管理</a>
+                    <a href="#">信用卡存档审核</a>
+                    <a href="#">VPS 退款</a>
+                    <a href="#">Social Trading Provider</a>
+                    <a href="#">Cash Adjustment Audit</a>
+                    <a href="mt-adjustment.html">Cash Adjustment Audit New</a>
+                    <a href="#">忠诚度计划管理</a>
+                    <a href="#">批量更新信息</a>
+                    <a href="#">PT 管理</a>
+                    <a href="#">MAM账号管理</a>
+                    <a href="#">Credit Adjustment Audit</a>
+                    <a href="credit-adjustment.html">Credit Adjustment Audit New</a>
+                </div>
+            </div>
+            <div class="nav-item">钱包管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">系统设置 <span class="arrow">&#9662;</span></div>
+        </div>
+        <div class="nav-right">
+            <div class="nav-env">VFSC2 <span class="arrow">&#9662;</span></div>
+            <div class="nav-icon green">&#8635;</div>
+            <div class="nav-icon blue">&#9733;</div>
+            <div class="nav-user">
+                <div class="avatar">&#128100;</div>
+                <span>Delia Zhao <span class="arrow">&#9662;</span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">主页</a>
+            <span class="sep">/</span>
+            <a href="#">任务管理</a>
+            <span class="sep">/</span>
+            <span class="current">Credit Adjustment Audit New</span>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-form">
+            <div class="form-item">
+                <label>License</label>
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>User ID</label>
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>Adjustment OrderID</label>
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>Account</label>
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>Account Type</label>
+                <select>
+                    <option value="" disabled selected>请选择</option>
+                    <option value="trading">Trading Account</option>
+                    <option value="rebate">Rebate Account</option>
+                </select>
+            </div>
+            <div class="search-buttons">
+                <button class="btn btn-primary">搜 索</button>
+                <button class="btn">重 置</button>
+                <button class="expand-btn">展开 <span>&#8744;</span></button>
+            </div>
+        </div>
+
+        <!-- Actions Row -->
+        <div class="actions-row">
+            <button class="btn-add" onclick="openModal()">+ New Adjustment</button>
+            <button class="btn-batch" onclick="openBatchModal()">&#8681; Batch CSV</button>
+            <button class="btn-approve">&#10003; Approve</button>
+            <button class="btn-reject">&#10005; Reject</button>
+            <button class="btn-download">&#8681; Download</button>
+            <button class="icon-btn" title="Settings">&#9881;</button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="checkbox-cell"><input type="checkbox"></th>
+                        <th>Adjustment OrderID <span class="sort-icon">&#8693;</span></th>
+                        <th>License</th>
+                        <th>User ID <span class="sort-icon">&#8693;</span></th>
+                        <th>Account <span class="sort-icon">&#8693;</span></th>
+                        <th>Account Type</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Comment</th>
+                        <th>Application Note</th>
+                        <th>Applicant</th>
+                        <th>Creation Time</th>
+                        <th>Update Time</th>
+                        <th>Reviewer</th>
+                        <th>Reject Reason</th>
+                        <th>System Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119231<br>2917086208</td>
+                        <td>SVG</td>
+                        <td>11581346</td>
+                        <td>34573453</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>4.24</td>
+                        <td>GBP</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 4.24</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:51</td>
+                        <td>2026-08-27 05:32:51</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119231<br>1029649408</td>
+                        <td>SVG</td>
+                        <td>2346063</td>
+                        <td>34411215</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>2.21</td>
+                        <td>EUR</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 2.21</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:51</td>
+                        <td>2026-08-27 05:32:51</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119226<br>0689612800</td>
+                        <td>SVG</td>
+                        <td>11417790</td>
+                        <td>33099850</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>21.88</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 21.88</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:39</td>
+                        <td>2026-08-27 05:32:39</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>VTADJ35119300<br>4821553920</td>
+                        <td>SVG</td>
+                        <td>10280045</td>
+                        <td>3647355</td>
+                        <td>VTS Account</td>
+                        <td>Deposit</td>
+                        <td>15.50</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Credit Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 15.5</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:38</td>
+                        <td>2026-08-27 05:32:38</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119224<br>5841776640</td>
+                        <td>SVG</td>
+                        <td>11513511</td>
+                        <td>34144653</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>4.63</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 4.63</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:36</td>
+                        <td>2026-08-27 05:32:36</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>VTADJ35119288<br>7730184192</td>
+                        <td>SVG</td>
+                        <td>9854321</td>
+                        <td>2335565</td>
+                        <td>VTS Account</td>
+                        <td>Deposit</td>
+                        <td>7.80</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Credit Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 7.8</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119224<br>6059880448</td>
+                        <td>SVG</td>
+                        <td>9827999</td>
+                        <td>34142913</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>12.44</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 12.44</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119224<br>1840410624</td>
+                        <td>SVG</td>
+                        <td>11300489</td>
+                        <td>33690231</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>29.10</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 29.1</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>2026-08-27 05:32:35</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>VTADJ35119210<br>5509872640</td>
+                        <td>SVG</td>
+                        <td>10173207</td>
+                        <td>233546</td>
+                        <td>VTS Account</td>
+                        <td>Deposit</td>
+                        <td>5.20</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Credit Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 5.2</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:32</td>
+                        <td>2026-08-27 05:32:32</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AUADJ35119222<br>8812902400</td>
+                        <td>SVG</td>
+                        <td>10225207</td>
+                        <td>26960459</td>
+                        <td>Trading Account</td>
+                        <td>Deposit</td>
+                        <td>3.60</td>
+                        <td>USD</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td>Cash Adjustment-De...</td>
+                        <td>Daily Task / Deduct-Credit 3.6</td>
+                        <td>System Auto</td>
+                        <td>2026-08-27 05:32:32</td>
+                        <td>2026-08-27 05:32:32</td>
+                        <td>System automatically</td>
+                        <td>-</td>
+                        <td>Old System</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="total">总 593745 条</span>
+            <button class="page-btn disabled">&lt;</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+            <span class="page-ellipsis">...</span>
+            <button class="page-btn">59375</button>
+            <button class="page-btn">&gt;</button>
+            <select class="page-size-select">
+                <option value="10">10 条/页</option>
+                <option value="20">20 条/页</option>
+                <option value="50">50 条/页</option>
+                <option value="100">100 条/页</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- New Adjustment Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Adjustment</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <form class="modal-form" id="adjustmentForm">
+                <div class="form-group">
+                    <label><span class="required">*</span>UID:</label>
+                    <div class="form-control">
+                        <input type="text" placeholder="Please enter" id="uidInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Account Type:</label>
+                    <div class="form-control">
+                        <select id="accountTypeSelect" onchange="onTypeChange(this.value)">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="mt_trading">MT Trading Account</option>
+                            <option value="vts">VTS Account</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" id="accountGroup">
+                    <label><span class="required">*</span>Account:</label>
+                    <div class="form-control">
+                        <select id="accountInput">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="21030151">21030151</option>
+                            <option value="21000037">21000037</option>
+                            <option value="19603899">19603899</option>
+                            <option value="30100087">30100087</option>
+                            <option value="33950577">33950577</option>
+                            <option value="28274088">28274088</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Adjustment Type:</label>
+                    <div class="form-control">
+                        <select id="typeSelect">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="Deposit">Deposit</option>
+                            <option value="Withdraw">Withdraw</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" id="currencyGroup">
+                    <label>Currency:</label>
+                    <div class="form-control" id="currencyControl">
+                        <input type="text" placeholder="Validate account first" disabled id="currencyInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Amount:</label>
+                    <div class="form-control">
+                        <input type="text" placeholder="" id="amountInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Comment:</label>
+                    <div class="form-control">
+                        <div class="comment-row">
+                            <select id="commentSelect">
+                                <option value="" disabled selected>Please select</option>
+                                <option value="Cash Adjustment">Cash Adjustment</option>
+                                <option value="Cash Adjustment - Deposit">Cash Adjustment - Deposit</option>
+                                <option value="Cash Adjustment - Withdraw">Cash Adjustment - Withdraw</option>
+                            </select>
+                            <button type="button" class="add-comment-btn">+ Add Comment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group align-top">
+                    <label>Notes:</label>
+                    <div class="form-control">
+                        <textarea placeholder="max length is 300 char" maxlength="300" id="notesInput" oninput="updateCharCount(this)"></textarea>
+                        <div class="char-count"><span id="charCount">0</span> / 300</div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Close</button>
+                <button class="btn btn-confirm" onclick="handleConfirm()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch CSV Modal -->
+    <div class="modal-overlay" id="batchModalOverlay">
+        <div class="modal" style="width: 500px; padding: 24px;">
+            <div class="modal-header">
+                <h3>Batch CSV import</h3>
+                <button class="modal-close" onclick="closeBatchModal()">&times;</button>
+            </div>
+
+            <div class="batch-section">
+                <div class="batch-section-title">Download template</div>
+                <div class="template-file-row">
+                    <span class="template-file-icon">&#128196;</span>
+                    <span class="template-file-name">cash_adjustment_template.csv</span>
+                    <a href="https://pj4w2l1pwuq.sg.larksuite.com/sheets/KziIs5djJhxOgVtxSjplTHotgid?sheet=2LMNn4" target="_blank" class="template-download-btn" title="Download">&#8681;</a>
+                </div>
+            </div>
+
+            <div class="batch-section">
+                <div class="batch-section-title">CSV file</div>
+                <button type="button" class="upload-file-btn">
+                    &#8613; Click to upload
+                </button>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" onclick="closeBatchModal()">取 消</button>
+                <button class="btn btn-upload-disabled" disabled>Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function openBatchModal() {
+            document.getElementById('batchModalOverlay').classList.add('active');
+            switchBatchTab('batch');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function closeBatchModal() {
+            document.getElementById('batchModalOverlay').classList.remove('active');
+        }
+
+
+        function updateCharCount(textarea) {
+            document.getElementById('charCount').textContent = textarea.value.length;
+        }
+
+        function handleConfirm() {
+            closeModal();
+        }
+
+        function onTypeChange(value) {
+            var accountGroup = document.getElementById('accountGroup');
+            var currencyControl = document.getElementById('currencyControl');
+
+            if (value === 'funding') {
+                accountGroup.style.display = 'none';
+                currencyControl.innerHTML = '<select id="currencySelect"><option value="" disabled selected>Please select</option><option value="USD">USD</option><option value="USDT">USDT</option><option value="ETH">ETH</option><option value="BTC">BTC</option><option value="EUR">EUR</option></select>';
+            } else {
+                accountGroup.style.display = 'flex';
+                currencyControl.innerHTML = '<input type="text" placeholder="Validate account first" disabled id="currencyInput">';
+            }
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.getElementById('batchModalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBatchModal();
+            }
+        });
+
+        document.querySelectorAll('.pagination .page-btn:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.pagination .page-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

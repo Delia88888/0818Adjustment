@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjustment Audit - Vantage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: #1a1a2e;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 32px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .nav-logo .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: #4ecb71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            color: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item .arrow {
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-env {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-icon.green {
+            background: #4ecb71;
+            color: #fff;
+        }
+
+        .nav-icon.blue {
+            background: #1890ff;
+            color: #fff;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-user .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #87d068;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        /* Main Content */
+        .container {
+            padding: 16px 24px;
+            background: #fff;
+            min-height: calc(100vh - 48px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #1890ff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span.sep {
+            margin: 0 6px;
+            color: #ccc;
+        }
+
+        .breadcrumb .current {
+            color: #333;
+        }
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+            align-items: flex-end;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-item label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-item input {
+            width: 200px;
+            height: 32px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 10px;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-item input:focus {
+            border-color: #1890ff;
+        }
+
+        .form-item input::placeholder {
+            color: #bfbfbf;
+        }
+
+        .search-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .btn {
+            height: 32px;
+            padding: 0 16px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all 0.3s;
+            background: #fff;
+            color: #333;
+        }
+
+        .btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .btn-primary {
+            background: #1890ff;
+            border-color: #1890ff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #40a9ff;
+            border-color: #40a9ff;
+            color: #fff;
+        }
+
+        .btn-success {
+            background: #52c41a;
+            border-color: #52c41a;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #73d13d;
+            border-color: #73d13d;
+        }
+
+        .btn-danger {
+            background: #ff4d4f;
+            border-color: #ff4d4f;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #ff7875;
+            border-color: #ff7875;
+        }
+
+        .expand-btn {
+            border: none;
+            background: none;
+            color: #1890ff;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Tabs and Actions Row */
+        .tabs-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-right: 16px;
+        }
+
+        .tab {
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #1890ff;
+        }
+
+        .tab.active {
+            color: #ff4d4f;
+            border-color: #ff4d4f;
+        }
+
+        .tab-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 16px;
+        }
+
+        .right-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+            align-items: center;
+        }
+
+        .btn-add {
+            background: #1890ff;
+            border-color: #1890ff;
+            color: #fff;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+        }
+
+        .btn-add:hover {
+            background: #40a9ff;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .icon-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        thead {
+            background: #fafafa;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        td {
+            color: #555;
+        }
+
+        tr:hover td {
+            background: #f5f5f5;
+        }
+
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+
+        .action-cell {
+            text-align: center;
+        }
+
+        .action-cell button {
+            background: none;
+            border: none;
+            color: #1890ff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 8px;
+            width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            position: relative;
+            align-self: flex-start;
+            margin-top: 5vh;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Modal Tabs */
+        .modal-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .modal-tab {
+            padding: 6px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            background: #fff;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .modal-tab.active {
+            background: #1890ff;
+            color: #fff;
+        }
+
+        /* Modal Form */
+        .modal-form .form-group {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-form .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            white-space: nowrap;
+            min-width: 160px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .modal-form .form-group label .required {
+            color: #ff4d4f;
+            margin-right: 4px;
+        }
+
+        .modal-form .form-group .form-control {
+            flex: 1;
+        }
+
+        .modal-form .form-group input,
+        .modal-form .form-group select,
+        .modal-form .form-group textarea {
+            width: 100%;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            background: #fff;
+        }
+
+        .modal-form .form-group input:focus,
+        .modal-form .form-group select:focus,
+        .modal-form .form-group textarea:focus {
+            border-color: #1890ff;
+        }
+
+        .modal-form .form-group textarea {
+            height: 80px;
+            padding: 8px 12px;
+            resize: vertical;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .modal-form .form-group input::placeholder,
+        .modal-form .form-group textarea::placeholder {
+            color: #bfbfbf;
+        }
+
+        .comment-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .comment-row select {
+            flex: 1;
+        }
+
+        .comment-row .add-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .comment-row .add-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .modal-footer .btn {
+            min-width: 100px;
+        }
+
+        /* Batch Confirm Table */
+        .batch-confirm {
+            display: none;
+        }
+
+        .batch-confirm.visible {
+            display: block;
+        }
+
+        .batch-confirm-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .batch-confirm .table-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .batch-confirm table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .batch-confirm table th,
+        .batch-confirm table td {
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .batch-confirm table th {
+            background: #fafafa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+
+        .batch-confirm table td {
+            color: #555;
+        }
+
+        .status-success {
+            color: #52c41a;
+        }
+
+        .status-fail {
+            color: #ff4d4f;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .pagination .total {
+            margin-right: 8px;
+            color: #333;
+        }
+
+        .pagination .page-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .pagination .page-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        .pagination .page-btn.active {
+            border-color: #fa8c16;
+            color: #fa8c16;
+            font-weight: 600;
+        }
+
+        .pagination .page-btn.disabled {
+            color: #d9d9d9;
+            cursor: not-allowed;
+            border-color: #d9d9d9;
+        }
+
+        .pagination .page-size-select {
+            height: 28px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 8px;
+            font-size: 12px;
+            color: #666;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Batch Upload */
+        .batch-content {
+            display: none;
+        }
+
+        .batch-content.visible {
+            display: block;
+        }
+
+        .single-content {
+            display: block;
+        }
+
+        .single-content.hidden {
+            display: none;
+        }
+
+        .batch-upload-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .batch-upload-label .required {
+            color: #ff4d4f;
+            margin-right: 4px;
+        }
+
+        .batch-upload-label a {
+            color: #1890ff;
+            text-decoration: none;
+            margin-left: 12px;
+            font-weight: 400;
+        }
+
+        .batch-upload-label a:hover {
+            text-decoration: underline;
+        }
+
+        .select-file-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1px dashed #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .select-file-btn:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+
+        /* Conditional fields */
+        .vts-fields {
+            display: none !important;
+        }
+
+        .vts-fields.visible {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-logo">
+            <div class="logo-icon">&#10003;</div>
+            <span>Vantage</span>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-item">Users <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Client <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Account <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Reports <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Task <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Funding <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Security <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">System Setting <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">Partner <span class="arrow">&#9662;</span></div>
+        </div>
+        <div class="nav-right">
+            <div class="nav-env">VFSC2 <span class="arrow">&#9662;</span></div>
+            <div class="nav-icon green">&#8635;</div>
+            <div class="nav-icon blue">&#9733;</div>
+            <div class="nav-user">
+                <div class="avatar">&#128100;</div>
+                <span>lemon <span class="arrow">&#9662;</span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">Home</a>
+            <span class="sep">/</span>
+            <a href="#">Funding</a>
+            <span class="sep">/</span>
+            <span class="current">Adjustment Audit</span>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-form">
+            <div class="form-item">
+                <label>Adjustment Application ID</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="form-item">
+                <label>Account Adjustment OrderID</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="form-item">
+                <label>Internal Account OrderID</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="form-item">
+                <label>UID</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="form-item">
+                <label>Funding Account ID</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="search-buttons">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn">Reset</button>
+                <button class="expand-btn">Expand <span>&#8744;</span></button>
+            </div>
+        </div>
+
+        <!-- Tabs Row -->
+        <div class="tabs-row">
+            <div class="tabs">
+                <div class="tab">All</div>
+                <div class="tab active">Unapproved</div>
+                <div class="tab">Approved</div>
+                <div class="tab">Related to Me</div>
+            </div>
+            <div class="tab-actions">
+                <button class="btn btn-success">Approve</button>
+                <button class="btn btn-danger">Reject</button>
+            </div>
+            <div class="right-actions">
+                <button class="btn-add" onclick="openModal()">+ Add</button>
+                <button class="icon-btn" title="Download">&#8681;</button>
+                <button class="icon-btn" title="Settings">&#9881;</button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="checkbox-cell"><input type="checkbox"></th>
+                        <th>Adjustment Application ID</th>
+                        <th>Account Adjustment OrderID</th>
+                        <th>Internal Account OrderID</th>
+                        <th>UID</th>
+                        <th>Account Type</th>
+                        <th>Account ID</th>
+                        <th>Adjustment Type</th>
+                        <th>Coin</th>
+                        <th>Amount</th>
+                        <th>Internal Account ID</th>
+                        <th>Campaign ID</th>
+                        <th>Comment</th>
+                        <th>Note</th>
+                        <th>Reject Reason</th>
+                        <th>Applicant</th>
+                        <th>Reviewer</th>
+                        <th>Application Status</th>
+                        <th>UpdateTime (UTC+3)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AU21025USDT178696880002H</td>
+                        <td>AUV2111002081359USDT178697142800W</td>
+                        <td>AU2025USDT17869714281535262</td>
+                        <td>1002081359</td>
+                        <td>Funding</td>
+                        <td>AUV2111002081359USDT</td>
+                        <td>Adjustment Withdraw</td>
+                        <td>USDT</td>
+                        <td>201.4000</td>
+                        <td>AU21025USDT</td>
+                        <td>--</td>
+                        <td>FundingComment-AdjustmentWithd 20260817005</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>admin</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-17 15:33:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AU1055USDT17864372650001</td>
+                        <td>AUV2111002017238USDT17864372660KC</td>
+                        <td>AU1055USDT178643726613535588</td>
+                        <td>1002017238</td>
+                        <td>Funding</td>
+                        <td>AUV2111002017238USDT</td>
+                        <td>Adjustment Withdraw</td>
+                        <td>USDT</td>
+                        <td>517.0000</td>
+                        <td>AU1055USDT</td>
+                        <td>--</td>
+                        <td>FundingComment-AdjustmentWithd 20260811001</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-11 10:20:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AU1055USDT17860881280002</td>
+                        <td>AUV2111003110507USDT17860881280E3Y</td>
+                        <td>AU1055USDT178608812866788303</td>
+                        <td>1003110507</td>
+                        <td>Funding</td>
+                        <td>AUV2111003110507USDT</td>
+                        <td>Adjustment Deposit</td>
+                        <td>USDT</td>
+                        <td>10.0000</td>
+                        <td>AU1055USDT</td>
+                        <td>--</td>
+                        <td>FundingComment-AdjustmentDepo 20260807002</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-07 14:05:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>AU1055ETH17860869560001</td>
+                        <td>AUV2111002084015ETH17860869560DXE</td>
+                        <td>AU1055ETH178608695689184335</td>
+                        <td>1002084015</td>
+                        <td>Funding</td>
+                        <td>AUV2111002084015ETH</td>
+                        <td>Adjustment Deposit</td>
+                        <td>ETH</td>
+                        <td>1.00000000</td>
+                        <td>AU1055ETH</td>
+                        <td>1001071</td>
+                        <td>FundingComment-AdjustmentDepo 20260807001</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-07 09:30:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>CT1055USD17860793900002</td>
+                        <td>CTV2111010173207USD178607939000IQ</td>
+                        <td>CT1055USD178607939034139l2</td>
+                        <td>10173207</td>
+                        <td>Prep</td>
+                        <td>CTV2111010173207USD</td>
+                        <td>Adjustment Deposit</td>
+                        <td>USD</td>
+                        <td>1500.0000</td>
+                        <td>AU2155-调账-通用-合约调账</td>
+                        <td>216648</td>
+                        <td>PrepComment-AdjustmentDepo 20260807002</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-07 11:15:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>CT1055USD17860793580001</td>
+                        <td>CTV2111010173207USD178607935900IO</td>
+                        <td>CT1055USD178607935896632442</td>
+                        <td>10173207</td>
+                        <td>Prep</td>
+                        <td>CTV2111010173207USD</td>
+                        <td>Adjustment Reward</td>
+                        <td>USD</td>
+                        <td>300.0000</td>
+                        <td>AU2155-调账-通用-合约调账</td>
+                        <td>--</td>
+                        <td>PrepComment-AdjustmentRewa 20260807001</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-08-07 08:45:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>VT1055USD17857400220001</td>
+                        <td>VTV2111010173207USD178574002200IY</td>
+                        <td>VT1055USD178574002295944242</td>
+                        <td>10173207</td>
+                        <td>VTS</td>
+                        <td>3647355</td>
+                        <td>Adjustment Deposit</td>
+                        <td>USD</td>
+                        <td>1000.0000</td>
+                        <td>AU2155-调账-通用-合约调账</td>
+                        <td>216640</td>
+                        <td>VTSComment-AdjustmentDepo 20260731006</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-07-31 16:20:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>VT1055USD17857241720001</td>
+                        <td>VTV2111010170191USD1785724172027S</td>
+                        <td>VT1055USD178572411728866106</td>
+                        <td>10170191</td>
+                        <td>VTS</td>
+                        <td>2335565</td>
+                        <td>Adjustment Reward</td>
+                        <td>USD</td>
+                        <td>200.0000</td>
+                        <td>AU2155-调账-通用-合约调账</td>
+                        <td>216630</td>
+                        <td>VTSComment-AdjustmentRewa 20260731009</td>
+                        <td>活动奖励发放</td>
+                        <td>--</td>
+                        <td>lemon</td>
+                        <td>--</td>
+                        <td>Unapproved</td>
+                        <td>2026-07-31 10:00:00</td>
+                        <td class="action-cell"><button title="Copy">&#128203;</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span class="total">Total 37 items</span>
+            <button class="page-btn disabled">&lt;</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">&gt;</button>
+            <select class="page-size-select">
+                <option value="20">20 / page</option>
+                <option value="50">50 / page</option>
+                <option value="100">100 / page</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Add Adjustment Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Adjustment</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <div class="modal-tabs">
+                <button class="modal-tab active" onclick="switchModalTab('single')">Single</button>
+                <button class="modal-tab" onclick="switchModalTab('batch')">Batch</button>
+            </div>
+
+            <!-- Batch Content -->
+            <div class="batch-content" id="batchContent">
+                <div class="batch-upload-label">
+                    <span class="required">*</span>Batch Upload
+                    <a href="#">Download Template</a>
+                </div>
+                <button type="button" class="select-file-btn" onclick="handleSelectFile()">
+                    &#8613; Select File
+                </button>
+            </div>
+
+            <!-- Batch Confirm Content -->
+            <div class="batch-confirm" id="batchConfirm">
+                <div class="batch-confirm-title">Please confirm the following adjustment records:</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>UID</th>
+                                <th>Account Type</th>
+                                <th>Account ID</th>
+                                <th>Adjustment Type</th>
+                                <th>Coin</th>
+                                <th>Amount</th>
+                                <th>Internal Account</th>
+                                <th>Campaign ID</th>
+                                <th>Comment</th>
+                                <th>Note</th>
+                                <th>Validation Status</th>
+                                <th>Validation Fail Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1002081359</td>
+                                <td>Funding</td>
+                                <td>AUV2111002081359USDT</td>
+                                <td>Adjustment Deposit</td>
+                                <td>USDT</td>
+                                <td>500.0000</td>
+                                <td>AU2152-Adjustment-General-Funding Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>1002017238</td>
+                                <td>Funding</td>
+                                <td>AUV2111002017238USDT</td>
+                                <td>Adjustment Withdraw</td>
+                                <td>USDT</td>
+                                <td>200.0000</td>
+                                <td>AU2152-Adjustment-General-Funding Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>1003110507</td>
+                                <td>Funding</td>
+                                <td>AUV2111003110507ETH</td>
+                                <td>Adjustment Deposit</td>
+                                <td>ETH</td>
+                                <td>2.00000000</td>
+                                <td>AU2152-Adjustment-General-Funding Adjustment</td>
+                                <td>1001071</td>
+                                <td>System Generated</td>
+                                <td>Campaign bonus</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>10173207</td>
+                                <td>Prep</td>
+                                <td>CTV2111010173207USD</td>
+                                <td>Adjustment Reward</td>
+                                <td>USD</td>
+                                <td>300.0000</td>
+                                <td>AU2155-Adjustment-General-Prep Adjustment</td>
+                                <td>216648</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>10170191</td>
+                                <td>Prep</td>
+                                <td>CTV2111010170191USD</td>
+                                <td>Adjustment Deposit</td>
+                                <td>USD</td>
+                                <td>1500.0000</td>
+                                <td>AU2155-Adjustment-General-Prep Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>10173207</td>
+                                <td>VTS</td>
+                                <td>3647355</td>
+                                <td>Adjustment Deposit</td>
+                                <td>USD</td>
+                                <td>1000.0000</td>
+                                <td>AU2151-Adjustment-General-VTS Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>Activity reward</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>10170191</td>
+                                <td>VTS</td>
+                                <td>233546</td>
+                                <td>Adjustment Reward</td>
+                                <td>USD</td>
+                                <td>500.0000</td>
+                                <td>AU2151-Adjustment-General-VTS Adjustment</td>
+                                <td>216640</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>1002084015</td>
+                                <td>Funding</td>
+                                <td>AUV2111002084015BTC</td>
+                                <td>Adjustment Reward</td>
+                                <td>BTC</td>
+                                <td>0.01000000</td>
+                                <td>AU2152-Adjustment-General-Funding Adjustment</td>
+                                <td>216630</td>
+                                <td>System Generated</td>
+                                <td>Trading competition</td>
+                                <td class="status-success">Success</td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td>9999999</td>
+                                <td>Funding</td>
+                                <td>--</td>
+                                <td>Adjustment Withdraw</td>
+                                <td>BTC</td>
+                                <td>0.50000000</td>
+                                <td>AU2152-Adjustment-General-Funding Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-fail">Fail</td>
+                                <td class="status-fail">UID not found</td>
+                            </tr>
+                            <tr>
+                                <td>10173207</td>
+                                <td>VTS</td>
+                                <td>8888888</td>
+                                <td>Adjustment Deposit</td>
+                                <td>USD</td>
+                                <td>250.0000</td>
+                                <td>AU2151-Adjustment-General-VTS Adjustment</td>
+                                <td>--</td>
+                                <td>System Generated</td>
+                                <td>--</td>
+                                <td class="status-fail">Fail</td>
+                                <td class="status-fail">Account not found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <span class="total">Total 37 items</span>
+                    <button class="page-btn disabled">&lt;</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">&gt;</button>
+                    <select class="page-size-select">
+                        <option value="20">20 / page</option>
+                        <option value="50">50 / page</option>
+                        <option value="100">100 / page</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Single Content -->
+            <form class="modal-form single-content" id="singleContent">
+                <div class="form-group">
+                    <label><span class="required">*</span>UID</label>
+                    <div class="form-control">
+                        <input type="text" placeholder="Please enter">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Account Type</label>
+                    <div class="form-control">
+                        <select id="accountTypeSelect" onchange="toggleAccountType(this.value)">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="wallet">Funding</option>
+                            <option value="contract">Prep</option>
+                            <option value="vts">VTS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group vts-fields" id="vtsAccountField">
+                    <label><span class="required">*</span>Account</label>
+                    <div class="form-control">
+                        <select id="vtsAccountSelect" onchange="onVtsAccountChange(this.value)">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="3647355">3647355</option>
+                            <option value="233546">233546</option>
+                            <option value="2335565">2335565</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Adjustment Type</label>
+                    <div class="form-control">
+                        <select>
+                            <option value="" disabled selected>Please select</option>
+                            <option value="AdjustmentDeposit">Adjustment Deposit</option>
+                            <option value="AdjustmentWithdraw">Adjustment Withdraw</option>
+                            <option value="AdjustmentReward">Adjustment Reward</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Coin</label>
+                    <div class="form-control">
+                        <select id="coinSelect">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="USD">USD</option>
+                            <option value="USDT">USDT</option>
+                            <option value="ETH">ETH</option>
+                            <option value="BTC">BTC</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Amount</label>
+                    <div class="form-control">
+                        <input type="text" placeholder="Please enter">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Internal Account</label>
+                    <div class="form-control">
+                        <select id="internalAccountSelect">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="AU2155-Adjustment-General-Prep Adjustment">AU2155-Adjustment-General-Prep Adjustment</option>
+                            <option value="AU2152-Adjustment-General-Funding Adjustment">AU2152-Adjustment-General-Funding Adjustment</option>
+                            <option value="AU2151-Adjustment-General-VTS Adjustment">AU2151-Adjustment-General-VTS Adjustment</option>
+                            <option value="AU23036-Card-Thredd_Reap Virtual Card-卡业务专用-平台加密币折损">AU23036-Card-Thredd_Reap Virtual Card-卡业务专用-平台加密币折损</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Campaign ID</label>
+                    <div class="form-control">
+                        <select>
+                            <option value="" disabled selected>Please select</option>
+                            <option value="1001071">1001071</option>
+                            <option value="216648">216648</option>
+                            <option value="216640">216640</option>
+                            <option value="216630">216630</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="required">*</span>Comment</label>
+                    <div class="form-control">
+                        <div class="comment-row">
+                            <select>
+                                <option value="System Generated">System Generated</option>
+                            </select>
+                            <button type="button" class="add-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Note</label>
+                    <div class="form-control">
+                        <textarea placeholder="Please enter up to 100 characters" maxlength="100" oninput="updateCharCount(this)"></textarea>
+                        <div class="char-count"><span id="charCount">0</span></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="confirmBtn" onclick="handleConfirmSubmit()">Continue</button>
+            </div>
+            <div class="modal-footer" id="modalFooterConfirm" style="display:none;">
+                <button class="btn" onclick="backToBatch()">Back</button>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.getElementById('batchConfirm').classList.remove('visible');
+            document.querySelector('.modal-tabs').style.display = 'flex';
+            document.getElementById('modalFooter').style.display = 'flex';
+            document.getElementById('modalFooterConfirm').style.display = 'none';
+            document.querySelector('.modal').style.width = '600px';
+            document.querySelector('.modal').style.maxWidth = '';
+            switchModalTab('single');
+        }
+
+        function updateCharCount(textarea) {
+            document.getElementById('charCount').textContent = textarea.value.length;
+        }
+
+        function onVtsAccountChange(value) {
+            const coinSelect = document.getElementById('coinSelect');
+            if (value) {
+                coinSelect.value = 'USD';
+                coinSelect.disabled = true;
+            } else {
+                coinSelect.value = '';
+                coinSelect.disabled = true;
+            }
+        }
+
+        function toggleAccountType(type) {
+            const vtsFields = document.querySelectorAll('.vts-fields');
+            const coinSelect = document.getElementById('coinSelect');
+
+            if (type === 'contract') {
+                vtsFields.forEach(f => f.classList.remove('visible'));
+                coinSelect.value = 'USD';
+                coinSelect.disabled = true;
+            } else if (type === 'vts') {
+                vtsFields.forEach(f => f.classList.add('visible'));
+                coinSelect.value = '';
+                coinSelect.disabled = true;
+            } else {
+                vtsFields.forEach(f => f.classList.remove('visible'));
+                coinSelect.disabled = false;
+                coinSelect.value = '';
+            }
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.querySelectorAll('.tabs .tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        let currentModalTab = 'single';
+
+        function switchModalTab(type) {
+            currentModalTab = type;
+            document.querySelectorAll('.modal-tabs .modal-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('batchConfirm').classList.remove('visible');
+            document.getElementById('modalFooter').style.display = 'flex';
+            document.getElementById('modalFooterConfirm').style.display = 'none';
+
+            if (type === 'batch') {
+                document.querySelectorAll('.modal-tabs .modal-tab')[1].classList.add('active');
+                document.getElementById('batchContent').classList.add('visible');
+                document.getElementById('singleContent').classList.add('hidden');
+                document.getElementById('confirmBtn').style.display = 'none';
+            } else {
+                document.querySelectorAll('.modal-tabs .modal-tab')[0].classList.add('active');
+                document.getElementById('batchContent').classList.remove('visible');
+                document.getElementById('singleContent').classList.remove('hidden');
+                document.getElementById('confirmBtn').style.display = '';
+            }
+        }
+
+        function handleConfirmSubmit() {
+            if (currentModalTab === 'batch') {
+                document.getElementById('batchContent').classList.remove('visible');
+                document.getElementById('batchConfirm').classList.add('visible');
+                document.querySelector('.modal-tabs').style.display = 'none';
+                document.getElementById('modalFooter').style.display = 'none';
+                document.getElementById('modalFooterConfirm').style.display = 'flex';
+                document.querySelector('.modal').style.width = '90vw';
+                document.querySelector('.modal').style.maxWidth = '1800px';
+            }
+        }
+
+        function handleSelectFile() {
+            document.getElementById('batchContent').classList.remove('visible');
+            document.getElementById('batchConfirm').classList.add('visible');
+            document.querySelector('.modal-tabs').style.display = 'none';
+            document.getElementById('modalFooter').style.display = 'none';
+            document.getElementById('modalFooterConfirm').style.display = 'flex';
+            document.querySelector('.modal').style.width = '90vw';
+            document.querySelector('.modal').style.maxWidth = '1800px';
+        }
+
+        function backToBatch() {
+            document.getElementById('batchConfirm').classList.remove('visible');
+            document.getElementById('batchContent').classList.add('visible');
+            document.querySelector('.modal-tabs').style.display = 'flex';
+            document.getElementById('modalFooter').style.display = 'flex';
+            document.getElementById('modalFooterConfirm').style.display = 'none';
+            document.querySelector('.modal').style.width = '600px';
+            document.querySelector('.modal').style.maxWidth = '';
+        }
+    </script>
+</body>
+</html>
