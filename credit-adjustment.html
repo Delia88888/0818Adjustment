@@ -854,7 +854,7 @@
             <span class="sep">/</span>
             <a href="#">Task</a>
             <span class="sep">/</span>
-            <span class="current">Credit Adjustment Audit</span>
+            <span class="current">Credit Adjustment Audit New</span>
         </div>
 
         <!-- Search Form -->
@@ -868,6 +868,10 @@
                 <input type="text" placeholder="Please enter">
             </div>
             <div class="form-item">
+                <label>Adjustment Record No</label>
+                <input type="text" placeholder="Please enter">
+            </div>
+            <div class="form-item">
                 <label>Account Group</label>
                 <input type="text" placeholder="Please enter">
             </div>
@@ -875,13 +879,9 @@
                 <label>Type</label>
                 <select>
                     <option value="" disabled selected>Please select</option>
-                    <option value="creditIn">creditIn</option>
-                    <option value="creditOut">creditOut</option>
+                    <option value="Credit In">Credit In</option>
+                    <option value="Credit Out">Credit Out</option>
                 </select>
-            </div>
-            <div class="form-item">
-                <label>Credits</label>
-                <input type="text" placeholder="Please enter">
             </div>
             <div class="search-buttons">
                 <button class="btn btn-primary">Search</button>
@@ -911,200 +911,322 @@
                         <th class="checkbox-cell"><input type="checkbox"></th>
                         <th>User ID <span class="sort-icon">&#8693;</span></th>
                         <th>Account <span class="sort-icon">&#8693;</span></th>
-                        <th>Account Group <span class="sort-icon">&#8693;</span></th>
+                        <th>Adjustment Record No <span class="sort-icon">&#8693;</span></th>
+                        <th>Account Group</th>
                         <th>Type <span class="sort-icon">&#8693;</span></th>
                         <th>Credits <span class="sort-icon">&#8693;</span></th>
                         <th>Currency <span class="sort-icon">&#8693;</span></th>
                         <th>Comment</th>
                         <th>Notes</th>
-                        <th>Creation Time <span class="sort-icon">&#128197;</span></th>
+                        <th>Creation Time <span class="sort-icon">&#8693;</span></th>
                         <th>Update Time <span class="sort-icon">&#8693;</span></th>
                         <th>Applicant</th>
                         <th>Reviewer</th>
                         <th>Reject Reason</th>
-                        <th>Status <span class="sort-icon">&#8693;</span></th>
-                        <th>Blacklist <span class="sort-icon">&#8693;</span></th>
+                        <th>Status</th>
+                        <th>System Type</th>
+                        <th>Blacklist</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>10181741</td>
-                        <td>19600495</td>
-                        <td>TEST\TEST_RISK_USD</td>
-                        <td>creditOut</td>
-                        <td>712</td>
+                        <td>1003117102</td>
+                        <td>34480055</td>
+                        <td>AUADJ3530721241411<br>46112</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit Out</td>
+                        <td>1.00</td>
+                        <td>USD</td>
+                        <td>Credit out gendan testing</td>
+                        <td></td>
+                        <td>2026-09-01 10:02:34</td>
+                        <td>2026-09-01 10:13:42</td>
+                        <td>lemon</td>
+                        <td>lemon2</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>New System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002075460</td>
+                        <td>19608382</td>
+                        <td>AUADJ3530741587014<br>57408</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit Out</td>
+                        <td>1.00</td>
                         <td>USD</td>
                         <td>Credit out-User Request</td>
                         <td></td>
-                        <td>2026-08-31 13:48:58</td>
-                        <td>2026-08-31 13:48:58</td>
-                        <td>testbity0yyb<br>lastptestbity0yyb</td>
+                        <td>2026-09-01 10:10:39</td>
+                        <td>2026-09-01 10:10:39</td>
+                        <td>-</td>
                         <td>System Auto</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002075460</td>
+                        <td>19608382</td>
+                        <td>AUADJ3530741125934<br>73536</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit In</td>
+                        <td>1.00</td>
+                        <td>USD</td>
+                        <td>test</td>
+                        <td>From automation ...</td>
+                        <td>2026-09-01 10:10:21</td>
+                        <td>2026-09-01 10:10:31</td>
+                        <td>cmatest.account<br>3</td>
+                        <td>cmatest.account<br>3</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002075460</td>
+                        <td>19608382</td>
+                        <td>AUADJ3530731172725<br>51424</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit Out</td>
+                        <td>1.00</td>
+                        <td>USD</td>
+                        <td>Credit out-User Request</td>
+                        <td></td>
+                        <td>2026-09-01 10:06:31</td>
+                        <td>2026-09-01 10:06:31</td>
+                        <td>-</td>
+                        <td>System Auto</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1003117102</td>
+                        <td>34480055</td>
+                        <td>AUADJ3530716121676<br>22656</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit In</td>
+                        <td>100.00</td>
+                        <td>USD</td>
+                        <td>Cash Adjustment - Chargeb...</td>
+                        <td></td>
+                        <td>2026-09-01 10:00:32</td>
+                        <td>2026-09-01 10:02:12</td>
+                        <td>lemon2</td>
+                        <td>lemon</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>New System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002075460</td>
+                        <td>19608382</td>
+                        <td>AUADJ3530714413922<br>50880</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit In</td>
+                        <td>1.00</td>
+                        <td>USD</td>
+                        <td>test</td>
+                        <td>From automation ...</td>
+                        <td>2026-09-01 09:59:51</td>
+                        <td>2026-09-01 10:00:05</td>
+                        <td>cmatest.account<br>3</td>
+                        <td>cmatest.account<br>3</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002075460</td>
+                        <td>7710996</td>
+                        <td>AUADJ3530708349042<br>81088</td>
+                        <td>test_CRM_USD</td>
+                        <td>Credit Out</td>
+                        <td>1.00</td>
+                        <td>USD</td>
+                        <td>Credit out-User Request</td>
+                        <td></td>
+                        <td>2026-09-01 09:57:24</td>
+                        <td>2026-09-01 09:57:24</td>
+                        <td>-</td>
+                        <td>System Auto</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>1002074680</td>
+                        <td>28273600</td>
+                        <td>AUADJ3530607701936<br>82432</td>
+                        <td>TEST_MY_USD</td>
+                        <td>Credit In</td>
+                        <td>10.00</td>
+                        <td>USD</td>
+                        <td>raf $10</td>
+                        <td></td>
+                        <td>2026-09-01 09:17:25</td>
+                        <td>2026-09-01 09:17:31</td>
+                        <td>SYSTEM</td>
+                        <td>luban adjustment</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
                         <td>10181741</td>
-                        <td>8351746</td>
-                        <td>test_CRM_USD</td>
-                        <td>creditIn</td>
-                        <td>5</td>
-                        <td>USD</td>
-                        <td>Remark</td>
-                        <td>System Auto</td>
-                        <td>2026-08-31 07:39:32</td>
-                        <td>2026-08-31 07:39:32</td>
-                        <td>System Auto</td>
-                        <td>System Auto</td>
-                        <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
-                        <td><span class="blacklist-icon">&#9872;</span></td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>10134318</td>
-                        <td>920023194</td>
-                        <td>Test\TEST_CRM_USD</td>
-                        <td>creditIn</td>
-                        <td>6</td>
-                        <td>USD</td>
-                        <td>Remark</td>
-                        <td>System Auto</td>
-                        <td>2026-08-31 07:28:31</td>
-                        <td>2026-08-31 07:28:31</td>
-                        <td>System Auto</td>
-                        <td>System Auto</td>
-                        <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
-                        <td><span class="blacklist-icon">&#9872;</span></td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>10134318</td>
-                        <td>920023194</td>
-                        <td>Test\TEST_CRM_USD</td>
-                        <td>creditIn</td>
-                        <td>6</td>
-                        <td>USD</td>
-                        <td>Remark</td>
-                        <td>System Auto</td>
-                        <td>2026-08-31 07:28:29</td>
-                        <td>2026-08-31 07:28:29</td>
-                        <td>System Auto</td>
-                        <td>System Auto</td>
-                        <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
-                        <td><span class="blacklist-icon">&#9872;</span></td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>10134318</td>
-                        <td>19601839</td>
+                        <td>7394730</td>
+                        <td>AUADJ3530586790227<br>59936</td>
                         <td>TEST\TEST_RISK_USD</td>
-                        <td>creditIn</td>
-                        <td>5</td>
+                        <td>Credit Out</td>
+                        <td>3.00</td>
                         <td>USD</td>
-                        <td>Remark</td>
-                        <td>System Auto</td>
-                        <td>2026-08-31 06:47:32</td>
-                        <td>2026-08-31 06:47:32</td>
-                        <td>System Auto</td>
+                        <td>Credit Out-Debt W/O</td>
+                        <td></td>
+                        <td>2026-09-01 09:09:07</td>
+                        <td>2026-09-01 09:09:07</td>
+                        <td>-</td>
                         <td>System Auto</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
-                        <td><span class="blacklist-icon">&#9872;</span></td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>10134318</td>
-                        <td>19601839</td>
-                        <td>TEST\TEST_RISK_USD</td>
-                        <td>creditIn</td>
-                        <td>5</td>
-                        <td>USD</td>
-                        <td>Remark</td>
-                        <td>System Auto</td>
-                        <td>2026-08-31 06:47:30</td>
-                        <td>2026-08-31 06:47:30</td>
-                        <td>System Auto</td>
-                        <td>System Auto</td>
-                        <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
                         <td>1002088265</td>
                         <td>28271370</td>
+                        <td>AUADJ3529950900414<br>23616</td>
                         <td>TEST\TEST_UNL_USD</td>
-                        <td>creditIn</td>
-                        <td>10</td>
+                        <td>Credit In</td>
+                        <td>5.00</td>
                         <td>USD</td>
                         <td>Remark</td>
                         <td>System Auto</td>
-                        <td>2026-08-31 06:37:54</td>
-                        <td>2026-08-31 06:37:54</td>
+                        <td>2026-09-01 04:56:27</td>
+                        <td>2026-09-01 04:56:27</td>
                         <td>System Auto</td>
                         <td>System Auto</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>1003110342</td>
-                        <td>28273471</td>
-                        <td>TEST_MY_USD</td>
-                        <td>creditOut</td>
-                        <td>8</td>
+                        <td>10181741</td>
+                        <td>19600495</td>
+                        <td>AUADJ3527667113528<br>64768</td>
+                        <td>TEST\TEST_RISK_USD</td>
+                        <td>Credit Out</td>
+                        <td>712.00</td>
                         <td>USD</td>
-                        <td>Credit Out-Debt W/O</td>
+                        <td>Credit out-User Request</td>
                         <td></td>
-                        <td>2026-08-29 12:14:19</td>
-                        <td>2026-08-29 12:14:19</td>
+                        <td>2026-08-31 13:48:58</td>
+                        <td>2026-08-31 13:48:58</td>
                         <td>-</td>
-                        <td>System automatically</td>
+                        <td>System Auto</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>1003116069</td>
-                        <td>28274661</td>
+                        <td>1003118346</td>
+                        <td>28275219</td>
+                        <td>AUADJ3526913923695<br>61600</td>
                         <td>TEST_MY_USD</td>
-                        <td>creditOut</td>
-                        <td>14</td>
+                        <td>Credit In</td>
+                        <td>1.00</td>
                         <td>USD</td>
-                        <td>Credit Out-Debt W/O</td>
-                        <td></td>
-                        <td>2026-08-29 12:14:16</td>
-                        <td>2026-08-29 12:14:16</td>
+                        <td>22</td>
+                        <td>1</td>
+                        <td>2026-08-31 08:49:41</td>
+                        <td>2026-08-31 08:49:41</td>
+                        <td>robin.wu</td>
                         <td>-</td>
-                        <td>System automatically</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot pending">SUBMITTED</span></td>
+                        <td>New System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                     <tr>
                         <td class="checkbox-cell"><input type="checkbox"></td>
-                        <td>1003116038</td>
-                        <td>28274653</td>
-                        <td>TEST_MY_USD</td>
-                        <td>creditOut</td>
-                        <td>2</td>
+                        <td>10181741</td>
+                        <td>8351746</td>
+                        <td>AUADJ3526737450241<br>35168</td>
+                        <td>test_CRM_USD</td>
+                        <td>Credit In</td>
+                        <td>5.00</td>
                         <td>USD</td>
-                        <td>Credit Out-Debt W/O</td>
+                        <td>Remark</td>
+                        <td>System Auto</td>
+                        <td>2026-08-31 07:39:32</td>
+                        <td>2026-08-31 07:39:32</td>
+                        <td>System Auto</td>
+                        <td>System Auto</td>
                         <td></td>
-                        <td>2026-08-29 12:14:15</td>
-                        <td>2026-08-29 12:14:15</td>
-                        <td>-</td>
-                        <td>System automatically</td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>10134318</td>
+                        <td>920023194</td>
+                        <td>AUADJ3526709673924<br>48512</td>
+                        <td>Test\TEST_CRM_USD</td>
+                        <td>Credit In</td>
+                        <td>6.00</td>
+                        <td>USD</td>
+                        <td>Remark</td>
+                        <td>System Auto</td>
+                        <td>2026-08-31 07:28:31</td>
+                        <td>2026-08-31 07:28:31</td>
+                        <td>System Auto</td>
+                        <td>System Auto</td>
                         <td></td>
-                        <td><span class="status-dot completed">Completed</span></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
+                        <td><span class="blacklist-icon">&#9872;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-cell"><input type="checkbox"></td>
+                        <td>10134318</td>
+                        <td>920023194</td>
+                        <td>AUADJ3526709671533<br>73184</td>
+                        <td>Test\TEST_CRM_USD</td>
+                        <td>Credit In</td>
+                        <td>6.00</td>
+                        <td>USD</td>
+                        <td>Remark</td>
+                        <td>System Auto</td>
+                        <td>2026-08-31 07:28:29</td>
+                        <td>2026-08-31 07:28:29</td>
+                        <td>System Auto</td>
+                        <td>System Auto</td>
+                        <td></td>
+                        <td><span class="status-dot completed">COMPLETED</span></td>
+                        <td>Old System</td>
                         <td><span class="blacklist-icon">&#9872;</span></td>
                     </tr>
                 </tbody>
@@ -1150,8 +1272,8 @@
                         <label><span class="required">*</span> Type</label>
                         <select>
                             <option value="" disabled selected>Please select</option>
-                            <option value="creditIn">creditIn</option>
-                            <option value="creditOut">creditOut</option>
+                            <option value="Credit In">Credit In</option>
+                            <option value="Credit Out">Credit Out</option>
                         </select>
                     </div>
                 </div>
