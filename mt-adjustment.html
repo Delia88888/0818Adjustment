@@ -1415,20 +1415,45 @@
                 <button class="modal-close" onclick="closeBatchModal()">&times;</button>
             </div>
 
-            <div class="batch-section">
-                <div class="batch-section-title">Download template</div>
-                <div class="template-file-row">
-                    <span class="template-file-icon">&#128196;</span>
-                    <span class="template-file-name">cash_adjustment_template.csv</span>
-                    <a href="https://pj4w2l1pwuq.sg.larksuite.com/sheets/KziIs5djJhxOgVtxSjplTHotgid" target="_blank" class="template-download-btn" title="Download">&#8681;</a>
+            <div class="modal-tabs" id="batchTypeTabs">
+                <button class="modal-tab active" onclick="switchBatchType('funding')">Funding</button>
+                <button class="modal-tab" onclick="switchBatchType('non-funding')">Non-Funding</button>
+            </div>
+
+            <!-- Funding -->
+            <div id="batchFunding">
+                <div class="batch-section">
+                    <div class="batch-section-title">Download template</div>
+                    <div class="template-file-row">
+                        <span class="template-file-icon">&#128196;</span>
+                        <span class="template-file-name">funding_adjustment_template.csv</span>
+                        <a href="https://pj4w2l1pwuq.sg.larksuite.com/sheets/KziIs5djJhxOgVtxSjplTHotgid" target="_blank" class="template-download-btn" title="Download">&#8681;</a>
+                    </div>
+                </div>
+                <div class="batch-section">
+                    <div class="batch-section-title">CSV file</div>
+                    <button type="button" class="upload-file-btn">
+                        &#8613; Click to upload
+                    </button>
                 </div>
             </div>
 
-            <div class="batch-section">
-                <div class="batch-section-title">CSV file</div>
-                <button type="button" class="upload-file-btn">
-                    &#8613; Click to upload
-                </button>
+            <!-- Non-Funding -->
+            <div id="batchNonFunding" style="display:none;">
+                <div class="batch-section">
+                    <div class="batch-section-title">Download template</div>
+                    <div class="template-file-row">
+                        <span class="template-file-icon">&#128196;</span>
+                        <span class="template-file-name">non_funding_adjustment_template.csv</span>
+                        <a href="https://pj4w2l1pwuq.sg.larksuite.com/sheets/KziIs5djJhxOgVtxSjplTHotgid" target="_blank" class="template-download-btn" title="Download">&#8681;</a>
+                    </div>
+                </div>
+                <div class="batch-section">
+                    <div class="batch-section-title">CSV file</div>
+                    <button type="button" class="upload-file-btn">
+                        &#8613; Click to upload
+                    </button>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -1454,6 +1479,20 @@
 
         function closeBatchModal() {
             document.getElementById('batchModalOverlay').classList.remove('active');
+        }
+
+        function switchBatchType(type) {
+            var tabs = document.querySelectorAll('#batchTypeTabs .modal-tab');
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            if (type === 'funding') {
+                tabs[0].classList.add('active');
+                document.getElementById('batchFunding').style.display = 'block';
+                document.getElementById('batchNonFunding').style.display = 'none';
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('batchFunding').style.display = 'none';
+                document.getElementById('batchNonFunding').style.display = 'block';
+            }
         }
 
 
