@@ -1463,7 +1463,7 @@
         </div>
     </div>
 
-    <!-- Import Preview Modal -->
+    <!-- Import Preview Modal - Funding -->
     <div class="modal-overlay" id="importPreviewOverlay">
         <div class="modal" style="width: 900px; padding: 24px;">
             <div class="modal-header">
@@ -1471,40 +1471,95 @@
                 <button class="modal-close" onclick="closeImportPreview()">&times;</button>
             </div>
 
-            <div class="table-wrapper" style="border: none;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Account</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Comment</th>
-                            <th>Ticket ID</th>
-                            <th>Fail Reason</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>19601968</td>
-                            <td>Deposit</td>
-                            <td>10</td>
-                            <td>0825-总入金</td>
-                            <td>34874584test</td>
-                            <td>-</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>28272246</td>
-                            <td>Deposit</td>
-                            <td>10</td>
-                            <td>0825-总入金</td>
-                            <td>34874584test</td>
-                            <td>-</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Funding Preview -->
+            <div id="fundingPreview">
+                <div class="table-wrapper" style="border: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>UID</th>
+                                <th>Type</th>
+                                <th>Coin</th>
+                                <th>Amount</th>
+                                <th>Comment</th>
+                                <th>Application Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1002081359</td>
+                                <td>Adjustment Deposit</td>
+                                <td>USDT</td>
+                                <td>500.0000</td>
+                                <td>FundingComment-AdjustmentDepo</td>
+                                <td>Batch import 20260902</td>
+                            </tr>
+                            <tr>
+                                <td>1002017238</td>
+                                <td>Adjustment Withdraw</td>
+                                <td>USDT</td>
+                                <td>200.0000</td>
+                                <td>FundingComment-AdjustmentWithd</td>
+                                <td>Batch import 20260902</td>
+                            </tr>
+                            <tr>
+                                <td>1003110507</td>
+                                <td>Adjustment Deposit</td>
+                                <td>ETH</td>
+                                <td>2.00000000</td>
+                                <td>FundingComment-AdjustmentDepo</td>
+                                <td>Campaign bonus</td>
+                            </tr>
+                            <tr>
+                                <td>1002084015</td>
+                                <td>Adjustment Reward</td>
+                                <td>BTC</td>
+                                <td>0.01000000</td>
+                                <td>FundingComment-AdjustmentRewa</td>
+                                <td>Trading competition</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Non-Funding Preview -->
+            <div id="nonFundingPreview" style="display:none;">
+                <div class="table-wrapper" style="border: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Comment</th>
+                                <th>Ticket ID</th>
+                                <th>Fail Reason</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>19601968</td>
+                                <td>Deposit</td>
+                                <td>10</td>
+                                <td>0825-总入金</td>
+                                <td>34874584test</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>28272246</td>
+                                <td>Deposit</td>
+                                <td>10</td>
+                                <td>0825-总入金</td>
+                                <td>34874584test</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -1532,8 +1587,17 @@
             document.getElementById('batchModalOverlay').classList.remove('active');
         }
 
+        var currentBatchType = 'funding';
+
         function openImportPreview() {
             document.getElementById('batchModalOverlay').classList.remove('active');
+            if (currentBatchType === 'funding') {
+                document.getElementById('fundingPreview').style.display = 'block';
+                document.getElementById('nonFundingPreview').style.display = 'none';
+            } else {
+                document.getElementById('fundingPreview').style.display = 'none';
+                document.getElementById('nonFundingPreview').style.display = 'block';
+            }
             document.getElementById('importPreviewOverlay').classList.add('active');
         }
 
@@ -1552,6 +1616,7 @@
         });
 
         function switchBatchType(type) {
+            currentBatchType = type;
             var tabs = document.querySelectorAll('#batchTypeTabs .modal-tab');
             tabs.forEach(function(t) { t.classList.remove('active'); });
             if (type === 'funding') {
