@@ -74,6 +74,49 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        .nav-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 100;
+            padding-top: 8px;
+            padding-bottom: 4px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            display: block;
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: #f5f5f5;
+            color: #1890ff;
+        }
+
         .nav-item .arrow {
             font-size: 10px;
             opacity: 0.7;
@@ -825,15 +868,43 @@
             <span>Vantage</span>
         </div>
         <div class="nav-menu">
-            <div class="nav-item">Users <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Client <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Account <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Reports <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Task <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Wallet <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Security <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">System Setting <span class="arrow">&#9662;</span></div>
-            <div class="nav-item">Partner <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">用户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">客户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">账户管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">统计报表 <span class="arrow">&#9662;</span></div>
+            <div class="nav-dropdown">
+                <div class="nav-item active">任务管理 <span class="arrow">&#9662;</span></div>
+                <div class="nav-dropdown-menu">
+                    <a href="#">转账审核</a>
+                    <a href="#">新转账审核</a>
+                    <a href="#">佣金审核</a>
+                    <a href="#">入金审核</a>
+                    <a href="#">Funding入金审核</a>
+                    <a href="#">杠杆审核</a>
+                    <a href="#">出金审核</a>
+                    <a href="#">Funding出金审核</a>
+                    <a href="#">账户审核</a>
+                    <a href="#">绑卡审核</a>
+                    <a href="#">同名账户审核</a>
+                    <a href="#">ID &amp; POA 审核</a>
+                    <a href="#">Wholesale Audit</a>
+                    <a href="#">信用卡交易审核</a>
+                    <a href="#">活动管理</a>
+                    <a href="#">信用卡存档审核</a>
+                    <a href="#">VPS 退款</a>
+                    <a href="#">Social Trading Provider</a>
+                    <a href="#">Cash Adjustment Audit</a>
+                    <a href="mt-adjustment.html">Cash Adjustment Audit New</a>
+                    <a href="#">忠诚度计划管理</a>
+                    <a href="#">批量更新信息</a>
+                    <a href="#">PT 管理</a>
+                    <a href="#">MAM账号管理</a>
+                    <a href="#">Credit Adjustment Audit</a>
+                    <a href="credit-adjustment.html">Credit Adjustment Audit New</a>
+                </div>
+            </div>
+            <div class="nav-item">钱包管理 <span class="arrow">&#9662;</span></div>
+            <div class="nav-item">系统设置 <span class="arrow">&#9662;</span></div>
         </div>
         <div class="nav-right">
             <div class="nav-env">VFSC2 <span class="arrow">&#9662;</span></div>
