@@ -1458,7 +1458,58 @@
 
             <div class="modal-footer">
                 <button class="btn" onclick="closeBatchModal()">取 消</button>
-                <button class="btn btn-upload-disabled" disabled>Upload</button>
+                <button class="btn btn-primary" onclick="openImportPreview()">Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Preview Modal -->
+    <div class="modal-overlay" id="importPreviewOverlay">
+        <div class="modal" style="width: 900px; padding: 24px;">
+            <div class="modal-header">
+                <h3>Import preview</h3>
+                <button class="modal-close" onclick="closeImportPreview()">&times;</button>
+            </div>
+
+            <div class="table-wrapper" style="border: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Comment</th>
+                            <th>Ticket ID</th>
+                            <th>Fail Reason</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>19601968</td>
+                            <td>Deposit</td>
+                            <td>10</td>
+                            <td>0825-总入金</td>
+                            <td>34874584test</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>28272246</td>
+                            <td>Deposit</td>
+                            <td>10</td>
+                            <td>0825-总入金</td>
+                            <td>34874584test</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" onclick="closeImportPreview()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmImport()">Confirm import</button>
             </div>
         </div>
     </div>
@@ -1480,6 +1531,25 @@
         function closeBatchModal() {
             document.getElementById('batchModalOverlay').classList.remove('active');
         }
+
+        function openImportPreview() {
+            document.getElementById('batchModalOverlay').classList.remove('active');
+            document.getElementById('importPreviewOverlay').classList.add('active');
+        }
+
+        function closeImportPreview() {
+            document.getElementById('importPreviewOverlay').classList.remove('active');
+        }
+
+        function confirmImport() {
+            closeImportPreview();
+        }
+
+        document.getElementById('importPreviewOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImportPreview();
+            }
+        });
 
         function switchBatchType(type) {
             var tabs = document.querySelectorAll('#batchTypeTabs .modal-tab');
