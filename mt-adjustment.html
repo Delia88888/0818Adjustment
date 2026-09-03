@@ -1416,12 +1416,12 @@
             </div>
 
             <div class="modal-tabs" id="batchTypeTabs">
-                <button class="modal-tab active" onclick="switchBatchType('funding')">Funding Account</button>
-                <button class="modal-tab" onclick="switchBatchType('non-funding')">Non-Funding Account</button>
+                <button class="modal-tab active" onclick="switchBatchType('non-funding')">Non-Funding Account</button>
+                <button class="modal-tab" onclick="switchBatchType('funding')">Funding Account</button>
             </div>
 
             <!-- Funding -->
-            <div id="batchFunding">
+            <div id="batchFunding" style="display:none;">
                 <div class="batch-section">
                     <div class="batch-section-title">Download template</div>
                     <div class="template-file-row">
@@ -1439,7 +1439,7 @@
             </div>
 
             <!-- Non-Funding -->
-            <div id="batchNonFunding" style="display:none;">
+            <div id="batchNonFunding">
                 <div class="batch-section">
                     <div class="batch-section-title">Download template</div>
                     <div class="template-file-row">
@@ -1606,7 +1606,7 @@
             document.getElementById('batchModalOverlay').classList.remove('active');
         }
 
-        var currentBatchType = 'funding';
+        var currentBatchType = 'non-funding';
 
         function openImportPreview() {
             document.getElementById('batchModalOverlay').classList.remove('active');
